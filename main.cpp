@@ -23,6 +23,8 @@ int main(int argc, char *argv[])
     Tema *t2 = new Tema("Electromagnetismo");
     t2->agregarApunte(new Apunte("Carga electrica", "Son cargas electricas que sirven para la electricidad"));
     t2->agregarApunte(new Apunte("Campo electrico", "Recion del espacio alrededor de una esfera"));
+    t2->agregarApunte(new Apunte("Ley de Faraday", "Recion del espacio alrededor de una esfera"));
+    t2->agregarApunte(new Apunte("Coulomb", "Recion del espacio alrededor de una esfera"));
 
     //qDebug().noquote() << t2->toString();
 
@@ -44,20 +46,31 @@ int main(int argc, char *argv[])
     //Obtener una pregunta e imprimir
     Pregunta *p = quiz.siguiente();
     //Imprimir
-    qDebug().noquote() << p->toString();
+    //qDebug().noquote() << p->toString();
     //Responder
     p->responder("Carga electrica");
     //Volver a imprimir
-    qDebug().noquote() << p->toString();
+    //qDebug().noquote() << p->toString();
 
     // Obtener otra pregunta e imprimir
     p = quiz.siguiente();
-    p->responder("Campo electrico");
-    qDebug().noquote() << p->toString();
+    p->responder("Incorrecto");
+    //qDebug().noquote() << p->toString();
+
+    quiz.finalizar();
 
     // Porcentaje
-    float porcentaje = quiz.porcentajeRespuesta();
-    qDebug().noquote() << "Porcentaje de respuestas correctas: " << porcentaje << "%";
+    qDebug().noquote() << "Porcentaje de respuestas correctas: " << quiz.score() << "%";
+
+    foreach(Pregunta *p, quiz.preguntas())
+    {
+        if(p->respuesta())
+        {
+            qDebug().noquote() << p->apunte()->termino() << "\t" << p->correcto();
+        }
+    }
+
+
 
     return a.exec();
 }

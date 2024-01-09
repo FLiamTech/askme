@@ -16,6 +16,7 @@ Cuestionario::Cuestionario(Tema *tema) : m_tema(tema)
 
 Pregunta *Cuestionario::siguiente()
 {
+    // TO do lanzar preguntas al azar
     foreach(Pregunta *p, m_preguntas)
     {
         if(!p->respuesta())
@@ -31,22 +32,38 @@ const QStringList &Cuestionario::terminos() const
     return m_terminos;
 }
 
-float Cuestionario::porcentajeRespuesta()
+float Cuestionario::finalizar()
 {
     int correcta = 0;
+    int respondida = 0;
     foreach(Pregunta *p, m_preguntas)
     {
-        if(p->correcto())
+        if(p->respuesta())
         {
-            correcta++;
+            respondida++;
+            if(p->correcto())
+            {
+                correcta++;
+            }
         }
     }
-    int totalPreguntas = m_terminos.size();
-    if(totalPreguntas == 0)
+    if(respondida > 0)
     {
-        return 0.0;
+        return m_score = (correcta * 100.0) / respondida;
     }
-    float total = (correcta * 100.0) / totalPreguntas;
-    return total;
+    else
+    {
+        return m_score = 0;
+    }
 
+}
+
+float Cuestionario::score() const
+{
+    return m_score;
+}
+
+const QList<Pregunta *> &Cuestionario::preguntas() const
+{
+    return m_preguntas;
 }

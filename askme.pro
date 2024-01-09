@@ -10,6 +10,7 @@ CONFIG += c++11
 
 SOURCES += \
     apunte.cpp \
+    apunteform.cpp \
     asignatura.cpp \
     cuestionario.cpp \
     main.cpp \
@@ -19,6 +20,7 @@ SOURCES += \
 
 HEADERS += \
     apunte.h \
+    apunteform.h \
     asignatura.h \
     askme.h \
     cuestionario.h \
@@ -26,9 +28,13 @@ HEADERS += \
     tema.h
 
 FORMS += \
+    apunteform.ui \
     askme.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    diagrama.qmodel
