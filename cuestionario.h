@@ -12,8 +12,8 @@ public:
     Cuestionario();
     Cuestionario(Tema *tema);
     Pregunta *siguiente();
-
     const QStringList &terminos() const;
+    float porcentajeRespuesta();
 
 private:
     float hit;

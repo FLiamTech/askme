@@ -52,7 +52,12 @@ int main(int argc, char *argv[])
 
     // Obtener otra pregunta e imprimir
     p = quiz.siguiente();
+    p->responder("Campo electrico");
     qDebug().noquote() << p->toString();
+
+    // Porcentaje
+    float porcentaje = quiz.porcentajeRespuesta();
+    qDebug().noquote() << "Porcentaje de respuestas correctas: " << porcentaje << "%";
 
     return a.exec();
 }

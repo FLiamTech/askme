@@ -30,3 +30,23 @@ const QStringList &Cuestionario::terminos() const
 {
     return m_terminos;
 }
+
+float Cuestionario::porcentajeRespuesta()
+{
+    int correcta = 0;
+    foreach(Pregunta *p, m_preguntas)
+    {
+        if(p->correcto())
+        {
+            correcta++;
+        }
+    }
+    int totalPreguntas = m_terminos.size();
+    if(totalPreguntas == 0)
+    {
+        return 0.0;
+    }
+    float total = (correcta * 100.0) / totalPreguntas;
+    return total;
+
+}
