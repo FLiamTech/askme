@@ -14,19 +14,20 @@ ApunteForm::~ApunteForm()
     delete ui;
 }
 
-const QList<Asignatura *> &ApunteForm::asignaturas() const
+QList<Asignatura *> &ApunteForm::asignaturas()
 {
-    return m_asignaturas;
+    return *m_asignaturas;
 }
 
-void ApunteForm::setAsignaturas(QList<Asignatura *> &newAsignaturas)
+void ApunteForm::setAsignaturas(QList<Asignatura *> &asignaturas)
 {
-    m_asignaturas = newAsignaturas;
+    m_asignaturas = &asignaturas;
 }
 
 void ApunteForm::cargarAsignaturas()
 {
-    foreach(Asignatura *a, m_asignaturas)
+    ui->cmbAsignatura->clear();
+    foreach(Asignatura *a, *m_asignaturas)
     {
         ui->cmbAsignatura->addItem(a->nombre());
     }
@@ -37,17 +38,110 @@ void ApunteForm::on_cmbAsignatura_currentIndexChanged(int index)
     cargarTemas(index);
 }
 
-void ApunteForm::cargarTemas(int asignatura)
+void ApunteForm::cargarTemas(int indice)
 {
     ui->cmbClase->clear();
-    if(asignatura >= 0 && asignatura < m_asignaturas.size())
+    if(indice >= 0 && indice < m_asignaturas->size())
     {
-        Asignatura *a = m_asignaturas.at(asignatura);
+        Asignatura *a = m_asignaturas->at(indice);
         QList<Tema *> temas = a->temas();
         foreach(Tema *t, temas)
         {
             ui->cmbClase->addItem(t->nombre());
         }
     }
+}
+
+void ApunteForm::on_btnAgragraAsignatura_released()
+{
+    bool ok;
+    QString nombre = QInputDialog::getText(this, "Agregar nueva asignatura","Nombre", QLineEdit::Normal, "", &ok);
+    if(ok && !nombre.isEmpty())
+    {
+        m_asignaturas->append(new Asignatura(nombre));
+        cargarAsignaturas();
+    }
+}
+
+
+void ApunteForm::on_pushButton_4_released()
+{
+    cargarAsignaturas();
+}
+
+
+void ApunteForm::on_btnAgregarTema_released()
+{
+    bool ok;
+
+    QString tema = QInputDialog::getText(this, "Agregar tema", "Tema", QLineEdit::Normal, "", &ok);
+    if(ok)
+    {
+        int indiceAsignatura = ui->cmbAsignatura->currentIndex();
+        Asignatura *a = m_asignaturas->at(indiceAsignatura);
+        Tema *nuevoTema = new Tema(tema);
+        a->agregarTema(nuevoTema);
+        ui->cmbClase->addItem(tema);
+    }
+}
+
+
+void ApunteForm::on_pushButton_6_released()
+{
+    cargarAsignaturas();
+}
+
+
+void ApunteForm::on_buttonBox_accepted()
+{
+    QString termino = ui->txtTermino->text();
+    QString concepto = ui->textEdit->toPlainText();
+    int temaIndex = ui->cmbClase->currentIndex();
+    int asignaturaIndex = ui->cmbAsignatura->currentIndex();
+
+    if(asignaturaIndex < 0 )
+    {
+        QMessageBox::warning(this, "Agregar apunte", "No se ha seleccionado una asignatura");
+        ui->cmbAsignatura->setFocus();
+        return;
+    }
+
+    if(temaIndex < 0 )
+    {
+        QMessageBox::warning(this, "Agregar apunte", "No se ha seleccionado un tema");
+        ui->cmbClase->setFocus();
+        return;
+    }
+
+    if(termino.isEmpty() )
+    {
+        QMessageBox::warning(this, "Agregar apunte", "El termino no puede quedar vacio");
+        ui->txtTermino->setFocus();
+        return;
+    }
+
+    if(concepto.isEmpty())
+    {
+        QMessageBox::warning(this, "Agregar apunte", "El concepto no puede quedar vacio");
+        ui->textEdit->setFocus();
+        return;
+    }
+
+    // Crea el nuevo apunte
+    Apunte *apunte = new Apunte(termino, concepto);
+    // Obtener la asignatura seleccionada
+    Asignatura *a = m_asignaturas->at(asignaturaIndex);
+    // Agregar el apunte al tema seleccionado
+    a->temas().at(temaIndex)->agregarApunte(new Apunte(termino, concepto));
+
+    emit apunteTomado(apunte);
+
+    this->parentWidget()->close();
+}
+
+
+void ApunteForm::on_buttonBox_rejected()
+{
+    this->parentWidget()->close();
 }
 

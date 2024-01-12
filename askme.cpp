@@ -14,6 +14,15 @@ Askme::~Askme()
     delete ui;
 }
 
+void Askme::on_apunteTomado(Apunte *apunte)
+{
+    foreach(Asignatura *a, m_asignaturas)
+    {
+        qDebug().noquote() << a->toString();
+    }
+
+}
+
 void Askme::cargarSubVentana(QWidget *ventana)
 {
     auto sub = ui->mdiArea->addSubWindow(ventana);
@@ -68,7 +77,7 @@ void Askme::on_actionNuevo_triggered()
     ApunteForm *w = new ApunteForm(this);
     w->setAsignaturas(m_asignaturas);
     w->cargarAsignaturas();
-
+    connect(w, SIGNAL(apunteTomado(Apunte*)), this, SLOT(on_apunteTomado(Apunte*)));
     cargarSubVentana(w);
 }
 

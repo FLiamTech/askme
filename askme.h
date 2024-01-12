@@ -19,6 +19,9 @@ class Askme : public QMainWindow
 public:
     Askme(QWidget *parent = nullptr);
     ~Askme();
+public slots:
+    void on_apunteTomado(Apunte *apunte);
+
 private:
     Ui::Askme *ui;
     void cargarSubVentana(QWidget *ventana);

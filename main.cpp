@@ -11,6 +11,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     Askme w;
     w.show();
+    /*
     Apunte *ap1 = new Apunte ("Funcion", "Una funcion de dependencia entre A y B");
     Apunte *ap2 = new Apunte ("Derivada", "Correspondencia entre el signo y el crecimiento o decrecimiento de la funcion original");
 
@@ -69,8 +70,7 @@ int main(int argc, char *argv[])
             qDebug().noquote() << p->apunte()->termino() << "\t" << p->correcto();
         }
     }
-
-
+    */
 
     return a.exec();
 }
