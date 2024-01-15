@@ -99,43 +99,42 @@ void ApunteForm::on_buttonBox_accepted()
     int temaIndex = ui->cmbClase->currentIndex();
     int asignaturaIndex = ui->cmbAsignatura->currentIndex();
 
-    if(asignaturaIndex < 0 )
+    if (asignaturaIndex < 0)
     {
         QMessageBox::warning(this, "Agregar apunte", "No se ha seleccionado una asignatura");
         ui->cmbAsignatura->setFocus();
         return;
     }
 
-    if(temaIndex < 0 )
+    if (temaIndex < 0)
     {
         QMessageBox::warning(this, "Agregar apunte", "No se ha seleccionado un tema");
         ui->cmbClase->setFocus();
         return;
     }
 
-    if(termino.isEmpty() )
+    if (termino.isEmpty())
     {
-        QMessageBox::warning(this, "Agregar apunte", "El termino no puede quedar vacio");
+        QMessageBox::warning(this, "Agregar apunte", "El término no puede quedar vacío");
         ui->txtTermino->setFocus();
         return;
     }
 
-    if(concepto.isEmpty())
+    if (concepto.isEmpty())
     {
-        QMessageBox::warning(this, "Agregar apunte", "El concepto no puede quedar vacio");
+        QMessageBox::warning(this, "Agregar apunte", "El concepto no puede quedar vacío");
         ui->textEdit->setFocus();
         return;
     }
 
-    // Crea el nuevo apunte
+    // Crear el nuevo apunte
     Apunte *apunte = new Apunte(termino, concepto);
     // Obtener la asignatura seleccionada
-    Asignatura *a = m_asignaturas->at(asignaturaIndex);
+    Asignatura *asignatura = m_asignaturas->at(asignaturaIndex);
     // Agregar el apunte al tema seleccionado
-    a->temas().at(temaIndex)->agregarApunte(new Apunte(termino, concepto));
+    asignatura->temas().at(temaIndex)->agregarApunte(new Apunte(termino, concepto));
 
     emit apunteTomado(apunte);
-
     this->parentWidget()->close();
 }
 

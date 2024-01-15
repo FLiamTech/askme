@@ -26,7 +26,6 @@ public:
 
 signals:
     void apunteTomado(Apunte *apunte);
-
 private slots:
     void on_cmbAsignatura_currentIndexChanged(int index);
 

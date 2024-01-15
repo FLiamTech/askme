@@ -3,9 +3,13 @@
 
 #include <QMainWindow>
 #include <QMdiSubWindow>
+#include <QFile>
+#include <QTextStream>
+#include <QFileDialog>
 
 #include <apunteform.h>
 #include <asignatura.h>
+#include <listaform.h>
 
 
 QT_BEGIN_NAMESPACE
@@ -27,8 +31,14 @@ private:
     void cargarSubVentana(QWidget *ventana);
     void cargarDatos();
     QList <Asignatura *> m_asignaturas;
+    const QString ARCHIVO = "tareas.csv";
+    void guardar();
+    void cargar();
+    void agregarApuntes(Asignatura *a, Tema *t, Apunte *ap);
 private slots:
     void on_actionNuevo_triggered();
 
+    void on_actionCargar_triggered();
+    void on_actionLista_triggered();
 };
 #endif // ASKME_H

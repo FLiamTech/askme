@@ -7,6 +7,7 @@ Askme::Askme(QWidget *parent)
 {
     ui->setupUi(this);
     cargarDatos();
+    connect(ui->actionCargar, SIGNAL(released()), this, SLOT(on_actionCargar_triggered()));
 }
 
 Askme::~Askme()
@@ -20,7 +21,7 @@ void Askme::on_apunteTomado(Apunte *apunte)
     {
         qDebug().noquote() << a->toString();
     }
-
+    guardar();
 }
 
 void Askme::cargarSubVentana(QWidget *ventana)
@@ -71,13 +72,120 @@ void Askme::cargarDatos()
     m_asignaturas.append(a2);
 }
 
+void Askme::guardar()
+{
+    QFile file(ARCHIVO);
+    qDebug() << "Intentando abrir el archivo para escribir...";
+    if(file.open(QIODevice::WriteOnly | QIODevice::Text))
+    {
+        qDebug() << "Archivo abierto correctamente.";
+        QTextStream salida(&file);
+        salida << "Asignatura\tTema\tTermino\tConcepto\n";
+        foreach(Asignatura *a, m_asignaturas)
+        {
+            QString nombreAsignatura = a->nombre();
+            foreach(Tema *t, a->temas())
+            {
+                QString nombreTema = t->nombre();
+                foreach (Apunte *ap, t->apuntes())  // Cambié el nombre a 'ap'
+                {
+                    QString termino = ap->termino();  // Cambié el nombre a 'ap'
+                    QString concepto = ap->concepto();  // Cambié el nombre a 'ap'
+
+                    salida << nombreAsignatura << "\t" << nombreTema << "\t" << termino << "\t" << concepto << "\n";
+                }
+            }
+        }
+        file.close();
+        qDebug() << "Archivo cerrado correctamente.";
+    }
+    else
+    {
+        QMessageBox::critical(this, "Agregar apunte", "No se pudieron guardar los datos");
+        qDebug() << "Error al abrir el archivo para escribir.";
+    }
+}
+
+void Askme::cargar()
+{
+    QFile file(ARCHIVO);
+    if(file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        QTextStream entrada(&file);
+        entrada.readLine();
+        while(!entrada.atEnd())
+        {
+            QString linea = entrada.readLine();
+            QStringList datos = linea.split("\t");
+            QString nombreAsignatura = datos[0];
+            QString nombreTema = datos[1];
+            QString termino = datos[2];
+            QString concepto = datos[3];
+
+            Asignatura *asignatura = nullptr;
+            Tema *tema = nullptr;
+
+            foreach(Asignatura *a, m_asignaturas)
+            {
+                if(a->nombre() == nombreAsignatura)
+                {
+                    asignatura = a;
+                    foreach(Tema *t, a->temas())
+                    {
+                        if(t->nombre() == nombreTema)
+                        {
+                            tema = t;
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+            if(asignatura && tema)
+            {
+                Apunte *apunte = new Apunte(termino, concepto);
+                tema->agregarApunte(apunte);
+            }
+        }
+        file.close();
+    }
+    else
+    {
+        QMessageBox::critical(this, "Cargar datos", "No se pudieron cargar los datos");
+    }
+}
+
+void Askme::agregarApuntes(Asignatura *a, Tema *t, Apunte *ap)
+{
+    if(a && t)
+    {
+        t->agregarApunte(ap);
+    }
+}
 
 void Askme::on_actionNuevo_triggered()
 {
     ApunteForm *w = new ApunteForm(this);
     w->setAsignaturas(m_asignaturas);
     w->cargarAsignaturas();
-    connect(w, SIGNAL(apunteTomado(Apunte*)), this, SLOT(on_apunteTomado(Apunte*)));
+    connect(w, SIGNAL(apunteTomado(Apunte*)), this, SLOT(agregarApunte(Asignatura *, Tema *, Apunte *)));
     cargarSubVentana(w);
+    guardar();
+}
+
+
+void Askme::on_actionCargar_triggered()
+{
+        cargar();
+        QMessageBox::information(this, "Cargar datos", "Datos cargados correctamente.");
+}
+
+
+void Askme::on_actionLista_triggered()
+{
+        listaForm *w = new listaForm(this);
+        cargarSubVentana(w);
+        w->show();
+
 }
 

@@ -74,3 +74,16 @@ int main(int argc, char *argv[])
 
     return a.exec();
 }
+
+
+/*
+ * jsom - guardar los datos
+ * archivo binario - tambien guardar los datos
+ *
+1. Cuando se agregue todo, guardar en un archivo csv. Para eso, crear un metodo en Askme.cpp denominado "guardar()",
+   separada por "Tab"
+2. Una vez guardada la informacion, modificar el metodo, cargar(), para que lea el archivo csv y cargue la informacion
+   en m_asignaturas
+3. Crear el formulario de lista de apuntes, para mostrar los apuntes guardados
+*/
+
