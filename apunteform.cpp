@@ -36,6 +36,7 @@ void ApunteForm::cargarAsignaturas()
 void ApunteForm::on_cmbAsignatura_currentIndexChanged(int index)
 {
     cargarTemas(index);
+
 }
 
 void ApunteForm::cargarTemas(int indice)
@@ -58,8 +59,12 @@ void ApunteForm::on_btnAgragraAsignatura_released()
     QString nombre = QInputDialog::getText(this, "Agregar nueva asignatura","Nombre", QLineEdit::Normal, "", &ok);
     if(ok && !nombre.isEmpty())
     {
-        m_asignaturas->append(new Asignatura(nombre));
+        Asignatura *nuevaAsignatura = new Asignatura(nombre);
+        m_asignaturas->append(nuevaAsignatura);
         cargarAsignaturas();
+
+        // Emitir la señal de nuevaAsignaturaCreada con la nueva asignatura como argumento
+        emit nuevaAsignaturaCreada(nuevaAsignatura);
     }
 }
 
@@ -130,10 +135,9 @@ void ApunteForm::on_buttonBox_accepted()
     // Crear el nuevo apunte
     Apunte *apunte = new Apunte(termino, concepto);
     // Obtener la asignatura seleccionada
-    Asignatura *asignatura = m_asignaturas->at(asignaturaIndex);
+    Asignatura *a = m_asignaturas->at(asignaturaIndex);
     // Agregar el apunte al tema seleccionado
-    asignatura->temas().at(temaIndex)->agregarApunte(new Apunte(termino, concepto));
-
+    a->temas().at(temaIndex)->agregarApunte(apunte);
     emit apunteTomado(apunte);
     this->parentWidget()->close();
 }

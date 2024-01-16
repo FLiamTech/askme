@@ -2,8 +2,9 @@
 #define LISTAFORM_H
 
 #include <QWidget>
+#include <QTableWidget>
 
-#include<asignatura.h>
+#include <asignatura.h>
 
 namespace Ui {
 class listaForm;
@@ -15,17 +16,18 @@ class listaForm : public QWidget
 
 public:
     explicit listaForm(QWidget *parent = nullptr);
-    void setAsignaturas(QList<Asignatura*> &asignaturas);
-
+    void setAsignaturas(QList<Asignatura *> *asignaturas);
+    void cargarAsignaturas();
+    void cargarTT(QString asignatura);
+    void limpiar();
     ~listaForm();
-
-
-private slots:
-    void on_cmbAsignaturas_currentIndexChanged(int index);
 
 private:
     Ui::listaForm *ui;
     QList<Asignatura *> *m_asignaturas;
+
+private slots:
+    void cargarTemas();
 };
 
 #endif // LISTAFORM_H

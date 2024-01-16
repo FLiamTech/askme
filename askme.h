@@ -6,6 +6,7 @@
 #include <QFile>
 #include <QTextStream>
 #include <QFileDialog>
+#include <QDebug>
 
 #include <apunteform.h>
 #include <asignatura.h>
@@ -29,16 +30,12 @@ public slots:
 private:
     Ui::Askme *ui;
     void cargarSubVentana(QWidget *ventana);
-    void cargarDatos();
     QList <Asignatura *> m_asignaturas;
-    const QString ARCHIVO = "tareas.csv";
     void guardar();
     void cargar();
-    void agregarApuntes(Asignatura *a, Tema *t, Apunte *ap);
 private slots:
     void on_actionNuevo_triggered();
 
-    void on_actionCargar_triggered();
     void on_actionLista_triggered();
 };
 #endif // ASKME_H

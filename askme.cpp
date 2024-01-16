@@ -6,7 +6,9 @@ Askme::Askme(QWidget *parent)
     , ui(new Ui::Askme)
 {
     ui->setupUi(this);
-    cargarDatos();
+
+    cargar();
+    guardar();
     connect(ui->actionCargar, SIGNAL(released()), this, SLOT(on_actionCargar_triggered()));
 }
 
@@ -22,6 +24,15 @@ void Askme::on_apunteTomado(Apunte *apunte)
         qDebug().noquote() << a->toString();
     }
     guardar();
+    cargar();
+    if (ui->mdiArea->currentSubWindow())
+    {
+        listaForm *listaVentana = qobject_cast<listaForm *>(ui->mdiArea->currentSubWindow()->widget());
+        if (listaVentana)
+        {
+            listaVentana->cargarAsignaturas();
+        }
+    }
 }
 
 void Askme::cargarSubVentana(QWidget *ventana)
@@ -30,51 +41,9 @@ void Askme::cargarSubVentana(QWidget *ventana)
     sub->show();
 }
 
-void Askme::cargarDatos()
-{
-    Tema *t1 = new Tema("Electromagnetismo");
-    t1->agregarApunte(new Apunte("Carga electrica", "Son cargas electricas que sirven para la electricidad"));
-    t1->agregarApunte(new Apunte("Campo electrico", "Recion del espacio alrededor de una esfera"));
-    t1->agregarApunte(new Apunte("Ley de Faraday", "Recion del espacio alrededor de una esfera"));
-    t1->agregarApunte(new Apunte("Coulomb", "Recion del espacio alrededor de una esfera"));
-    t1->agregarApunte(new Apunte("Ley de ampere", "Relacion matematica que describe la circulacion de un campo magnetico a"));
-
-    Tema *t2 = new Tema("Optica");
-    t2->agregarApunte(new Apunte("Luz", "Luz que hace ver bien"));
-    t2->agregarApunte(new Apunte("Refreccion", "Cambio de direccion del un rayo de luz"));
-    t2->agregarApunte(new Apunte("Jordan", "Jos joras son mu buenos"));
-    t2->agregarApunte(new Apunte("Prisma", "Objeto optico que sirve para ver la luz"));
-    t2->agregarApunte(new Apunte("Dispersion", "Separacion entre lo esto y lo estiotro"));
-
-    Asignatura *a1 = new Asignatura("Fisica");
-    a1->agregarTema(t1);
-    a1->agregarTema(t2);
-
-    t1 = new Tema("Ecologia");
-    t1->agregarApunte(new Apunte("Ecosistema", "Sistema ambiental de la naturaleza"));
-    t1->agregarApunte(new Apunte("Biodiversidad", "Entorno fisico entre el ser humano y la naturaleza"));
-    t1->agregarApunte(new Apunte("Cadena alimentaria", "Serie de organismos en una piramide alimenticia"));
-    t1->agregarApunte(new Apunte("Ciclo del agua", "Proceso continuo de circulacion del agua entre esto y eso"));
-    t1->agregarApunte(new Apunte("Bioma", "Gran area geografica con caracteristicas climaticas similares a"));
-
-    t2 = new Tema("Genetica");
-    t2->agregarApunte(new Apunte("ADN", "Acido disoxido Ribonucleico"));
-    t2->agregarApunte(new Apunte("Gen", "Unidades de informacion hereditaria"));
-    t2->agregarApunte(new Apunte("Cromosomas", "Estructura compuesta por adn y proteinas"));
-    t2->agregarApunte(new Apunte("Mutacion", "Cambio en la secuencia de ADN que puede dar lugar a"));
-    t2->agregarApunte(new Apunte("Herencia", "Tramsisiones de caracteristicas geneticas de padres a descendientes"));
-
-    Asignatura *a2 = new Asignatura("Ciencias naturales");
-    a2->agregarTema(t1);
-    a2->agregarTema(t2);
-
-    m_asignaturas.append(a1);
-    m_asignaturas.append(a2);
-}
-
 void Askme::guardar()
 {
-    QFile file(ARCHIVO);
+    QFile file("apuntes.csv");
     qDebug() << "Intentando abrir el archivo para escribir...";
     if(file.open(QIODevice::WriteOnly | QIODevice::Text))
     {
@@ -108,7 +77,7 @@ void Askme::guardar()
 
 void Askme::cargar()
 {
-    QFile file(ARCHIVO);
+    QFile file("apuntes.csv");
     if(file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         QTextStream entrada(&file);
@@ -117,32 +86,42 @@ void Askme::cargar()
         {
             QString linea = entrada.readLine();
             QStringList datos = linea.split("\t");
-            QString nombreAsignatura = datos[0];
-            QString nombreTema = datos[1];
-            QString termino = datos[2];
-            QString concepto = datos[3];
-
-            Asignatura *asignatura = nullptr;
-            Tema *tema = nullptr;
-
-            foreach(Asignatura *a, m_asignaturas)
+            if(datos.size() >= 4)
             {
-                if(a->nombre() == nombreAsignatura)
+                QString nombreAsignatura = datos[0].trimmed();
+                QString nombreTema = datos[1].trimmed();
+                QString termino = datos[2].trimmed();
+                QString concepto = datos[3].trimmed();
+                Asignatura *asignatura = nullptr;
+                Tema *tema = nullptr;
+
+
+                foreach(Asignatura *a, m_asignaturas)
                 {
-                    asignatura = a;
-                    foreach(Tema *t, a->temas())
+                    if(a->nombre() == nombreAsignatura)
                     {
-                        if(t->nombre() == nombreTema)
+                        asignatura = a;
+                        foreach(Tema *t, a->temas())
                         {
-                            tema = t;
-                            break;
+                            if(t->nombre() == nombreTema)
+                            {
+                                tema = t;
+                                break;
+                            }
                         }
+                        break;
                     }
-                    break;
                 }
-            }
-            if(asignatura && tema)
-            {
+                if (!asignatura)
+                {
+                    asignatura = new Asignatura(nombreAsignatura);
+                    m_asignaturas.append(asignatura);
+                }
+                if (!tema)
+                {
+                    tema = new Tema(nombreTema);
+                    asignatura->agregarTema(tema);
+                }
                 Apunte *apunte = new Apunte(termino, concepto);
                 tema->agregarApunte(apunte);
             }
@@ -155,37 +134,28 @@ void Askme::cargar()
     }
 }
 
-void Askme::agregarApuntes(Asignatura *a, Tema *t, Apunte *ap)
-{
-    if(a && t)
-    {
-        t->agregarApunte(ap);
-    }
-}
-
 void Askme::on_actionNuevo_triggered()
 {
     ApunteForm *w = new ApunteForm(this);
     w->setAsignaturas(m_asignaturas);
     w->cargarAsignaturas();
-    connect(w, SIGNAL(apunteTomado(Apunte*)), this, SLOT(agregarApunte(Asignatura *, Tema *, Apunte *)));
+    connect(w, SIGNAL(nuevaAsignaturaCreada(Asignatura*)), this, SLOT(on_nuevaAsignaturaCreada(Asignatura*)));
+    connect(w, SIGNAL(apunteTomado(Apunte*)), this, SLOT(on_apunteTomado(Apunte*)));
     cargarSubVentana(w);
-    guardar();
-}
 
 
-void Askme::on_actionCargar_triggered()
-{
-        cargar();
-        QMessageBox::information(this, "Cargar datos", "Datos cargados correctamente.");
 }
 
 
 void Askme::on_actionLista_triggered()
 {
-        listaForm *w = new listaForm(this);
-        cargarSubVentana(w);
-        w->show();
+    listaForm *w = new listaForm(this);
 
+    w->setAsignaturas(&m_asignaturas);
+
+    w->cargarAsignaturas();
+
+    cargarSubVentana(w);
+    w->show();
 }
 

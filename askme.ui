@@ -59,15 +59,8 @@
     </property>
     <addaction name="actionCreditos"/>
    </widget>
-   <widget class="QMenu" name="menuActualizar">
-    <property name="title">
-     <string>Actualizar</string>
-    </property>
-    <addaction name="actionCargar"/>
-   </widget>
    <addaction name="menuArchivo"/>
    <addaction name="menuAcerca_de"/>
-   <addaction name="menuActualizar"/>
   </widget>
   <action name="actionNuevo">
    <property name="text">
