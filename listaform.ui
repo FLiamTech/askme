@@ -38,7 +38,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QTableWidget" name="tblTerminos"/>
+      <widget class="QTableWidget" name="tblConceptos"/>
      </item>
     </layout>
    </item>

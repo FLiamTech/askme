@@ -8,7 +8,7 @@ Askme::Askme(QWidget *parent)
     ui->setupUi(this);
 
     cargar();
-    guardar();
+    //guardar();
     connect(ui->actionCargar, SIGNAL(released()), this, SLOT(on_actionCargar_triggered()));
 }
 
@@ -24,7 +24,7 @@ void Askme::on_apunteTomado(Apunte *apunte)
         qDebug().noquote() << a->toString();
     }
     guardar();
-    cargar();
+    //cargar();
     if (ui->mdiArea->currentSubWindow())
     {
         listaForm *listaVentana = qobject_cast<listaForm *>(ui->mdiArea->currentSubWindow()->widget());
@@ -33,6 +33,15 @@ void Askme::on_apunteTomado(Apunte *apunte)
             listaVentana->cargarAsignaturas();
         }
     }
+}
+
+void Askme::on_cuestionarioCreado(Cuestionario *cuestionario)
+{
+    PreguntaForm *w = new PreguntaForm(this);
+    w->setCuestionario(cuestionario);
+
+    cargarSubVentana(w);
+
 }
 
 void Askme::cargarSubVentana(QWidget *ventana)
@@ -56,10 +65,10 @@ void Askme::guardar()
             foreach(Tema *t, a->temas())
             {
                 QString nombreTema = t->nombre();
-                foreach (Apunte *ap, t->apuntes())  // Cambié el nombre a 'ap'
+                foreach (Apunte *ap, t->apuntes())
                 {
-                    QString termino = ap->termino();  // Cambié el nombre a 'ap'
-                    QString concepto = ap->concepto();  // Cambié el nombre a 'ap'
+                    QString termino = ap->termino();
+                    QString concepto = ap->concepto();
 
                     salida << nombreAsignatura << "\t" << nombreTema << "\t" << termino << "\t" << concepto << "\n";
                 }
@@ -146,7 +155,6 @@ void Askme::on_actionNuevo_triggered()
 
 }
 
-
 void Askme::on_actionLista_triggered()
 {
     listaForm *w = new listaForm(this);
@@ -157,5 +165,14 @@ void Askme::on_actionLista_triggered()
 
     cargarSubVentana(w);
     w->show();
+}
+
+void Askme::on_actionGenerar_triggered()
+{
+    CuestionarioForm *w = new CuestionarioForm(this);
+    w->setAsignaturas(m_asignaturas);
+    w->cargarAsignaturas();
+    connect(w, SIGNAL(cuestionarioCreado(Cuestionario*)), this, SLOT(on_cuestionarioCreado(Cuestionario*)));
+    cargarSubVentana(w);
 }
 

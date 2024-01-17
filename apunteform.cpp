@@ -36,7 +36,6 @@ void ApunteForm::cargarAsignaturas()
 void ApunteForm::on_cmbAsignatura_currentIndexChanged(int index)
 {
     cargarTemas(index);
-
 }
 
 void ApunteForm::cargarTemas(int indice)
@@ -62,7 +61,7 @@ void ApunteForm::on_btnAgragraAsignatura_released()
         Asignatura *nuevaAsignatura = new Asignatura(nombre);
         m_asignaturas->append(nuevaAsignatura);
         cargarAsignaturas();
-
+        ui->cmbAsignatura->setCurrentText(nombre);
         // Emitir la señal de nuevaAsignaturaCreada con la nueva asignatura como argumento
         emit nuevaAsignaturaCreada(nuevaAsignatura);
     }
@@ -80,13 +79,12 @@ void ApunteForm::on_btnAgregarTema_released()
     bool ok;
 
     QString tema = QInputDialog::getText(this, "Agregar tema", "Tema", QLineEdit::Normal, "", &ok);
-    if(ok)
+    if(ok && !tema.isEmpty())
     {
         int indiceAsignatura = ui->cmbAsignatura->currentIndex();
-        Asignatura *a = m_asignaturas->at(indiceAsignatura);
-        Tema *nuevoTema = new Tema(tema);
-        a->agregarTema(nuevoTema);
-        ui->cmbClase->addItem(tema);
+        m_asignaturas->at(indiceAsignatura)->agregarTema(new Tema(tema));
+        on_cmbAsignatura_currentIndexChanged(indiceAsignatura);
+        ui->cmbClase->setCurrentText(tema);
     }
 }
 
@@ -104,31 +102,10 @@ void ApunteForm::on_buttonBox_accepted()
     int temaIndex = ui->cmbClase->currentIndex();
     int asignaturaIndex = ui->cmbAsignatura->currentIndex();
 
-    if (asignaturaIndex < 0)
+    if (asignaturaIndex < 0 || temaIndex < 0 || termino.isEmpty() || concepto.isEmpty())
     {
-        QMessageBox::warning(this, "Agregar apunte", "No se ha seleccionado una asignatura");
-        ui->cmbAsignatura->setFocus();
-        return;
-    }
-
-    if (temaIndex < 0)
-    {
-        QMessageBox::warning(this, "Agregar apunte", "No se ha seleccionado un tema");
-        ui->cmbClase->setFocus();
-        return;
-    }
-
-    if (termino.isEmpty())
-    {
-        QMessageBox::warning(this, "Agregar apunte", "El término no puede quedar vacío");
-        ui->txtTermino->setFocus();
-        return;
-    }
-
-    if (concepto.isEmpty())
-    {
-        QMessageBox::warning(this, "Agregar apunte", "El concepto no puede quedar vacío");
-        ui->textEdit->setFocus();
+        // No permitir guardar si los datos están incompletos
+        QMessageBox::warning(this, "Agregar apunte", "Por favor, complete todos los campos antes de guardar.");
         return;
     }
 
@@ -138,7 +115,19 @@ void ApunteForm::on_buttonBox_accepted()
     Asignatura *a = m_asignaturas->at(asignaturaIndex);
     // Agregar el apunte al tema seleccionado
     a->temas().at(temaIndex)->agregarApunte(apunte);
-    emit apunteTomado(apunte);
+
+    // Emitir la señal solo si hay conectados interesados
+    if (QObject::receivers(SIGNAL(apunteTomado(Apunte*))) > 0) {
+        emit apunteTomado(apunte);
+    }
+
+    // Limpiar los campos después de guardar
+    ui->txtTermino->clear();
+    ui->textEdit->clear();
+    ui->cmbAsignatura->setCurrentIndex(-1);
+    ui->cmbClase->clear();
+
+    // Cerrar el formulario después de guardar
     this->parentWidget()->close();
 }
 

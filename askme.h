@@ -11,7 +11,8 @@
 #include <apunteform.h>
 #include <asignatura.h>
 #include <listaform.h>
-
+#include <cuestionarioform.h>
+#include <preguntaform.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Askme; }
@@ -26,6 +27,7 @@ public:
     ~Askme();
 public slots:
     void on_apunteTomado(Apunte *apunte);
+    void on_cuestionarioCreado(Cuestionario *cuestionario);
 
 private:
     Ui::Askme *ui;
@@ -37,5 +39,6 @@ private slots:
     void on_actionNuevo_triggered();
 
     void on_actionLista_triggered();
+    void on_actionGenerar_triggered();
 };
 #endif // ASKME_H

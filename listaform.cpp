@@ -9,9 +9,12 @@ listaForm::listaForm(QWidget *parent) :
     ui->setupUi(this);
     connect(ui->cmbAsignaturas, SIGNAL(currentIndexChanged(const QString&)), this, SLOT(cargarTemas()));
     ui->tblTemas->setColumnCount(1);
-    QStringList cabecera;
+    ui->tblConceptos->setColumnCount(1);
+    QStringList cabecera, cabecera2;
     cabecera << "Temas";
     ui->tblTemas->setHorizontalHeaderLabels(cabecera);
+    cabecera2 << "Conceptos";
+    ui->tblTemas->setHorizontalHeaderLabels(cabecera2);
     cargarAsignaturas();
 }
 
@@ -54,8 +57,8 @@ void listaForm::cargarTemas()
         }
     }
 
-    ui->tblTerminos->clearContents();
-    ui->tblTerminos->setRowCount(0);
+    ui->tblConceptos->clearContents();
+    ui->tblConceptos->setRowCount(0);
 }
 
 void listaForm::setAsignaturas(QList<Asignatura *> *asignaturas)
@@ -79,7 +82,6 @@ void listaForm::cargarAsignaturas()
 void listaForm::cargarTT(QString nombreAsignatura)
 {
     limpiar();
-
 }
 
 void listaForm::limpiar()
@@ -87,7 +89,7 @@ void listaForm::limpiar()
     ui->tblTemas->clearContents();
     ui->tblTemas->setRowCount(0);
 
-    ui->tblTerminos->clearContents();
-    ui->tblTerminos->setRowCount(0);
-    ui->tblTerminos->clear();
+    ui->tblConceptos->clearContents();
+    ui->tblConceptos->setRowCount(0);
+    ui->tblConceptos->clear();
 }
