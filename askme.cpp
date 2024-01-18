@@ -40,8 +40,17 @@ void Askme::on_cuestionarioCreado(Cuestionario *cuestionario)
     PreguntaForm *w = new PreguntaForm(this);
     w->setCuestionario(cuestionario);
 
+    connect(w, SIGNAL(preguntasContestadas()), this, SLOT(on_preguntasContestadas()));
+
     cargarSubVentana(w);
 
+}
+
+void Askme::on_preguntasContestadas()
+{
+    ResultadosForm *w = new ResultadosForm(this);
+
+    cargarSubVentana(w);
 }
 
 void Askme::cargarSubVentana(QWidget *ventana)
@@ -173,6 +182,7 @@ void Askme::on_actionGenerar_triggered()
     w->setAsignaturas(m_asignaturas);
     w->cargarAsignaturas();
     connect(w, SIGNAL(cuestionarioCreado(Cuestionario*)), this, SLOT(on_cuestionarioCreado(Cuestionario*)));
+    // connect(w, SIGNAL(preguntasContestadas()), this, SLOT(on_preguntasContestadas(Pregunta*)));
     cargarSubVentana(w);
 }
 

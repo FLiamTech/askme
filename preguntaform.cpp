@@ -3,11 +3,11 @@
 
 PreguntaForm::PreguntaForm(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::PreguntaForm)
+    ui(new Ui::PreguntaForm),
+    m_cuestionario(nullptr)
 {
     ui->setupUi(this);
-
-    connect(ui->buttonBox, SIGNAL(accepted()), this, SLOT(on_buttonBox_accepted()));
+   // connect(ui->buttonBox, SIGNAL(accepted()), this, SLOT(on_buttonBox_accepted()));
 }
 
 PreguntaForm::~PreguntaForm()
@@ -18,29 +18,48 @@ PreguntaForm::~PreguntaForm()
 void PreguntaForm::setCuestionario(Cuestionario *newCuestionario)
 {
     m_cuestionario = newCuestionario;
-
-    ui->lblTema->setText(m_cuestionario->nombreTema());
-    ui->cmbTerminos->addItems(m_cuestionario->terminos());
-
-    mostrarConceptos();
+    if (m_cuestionario) {
+        ui->lblTema->setText(m_cuestionario->nombreTema());
+        ui->cmbTerminos->clear();
+        ui->cmbTerminos->addItems(m_cuestionario->terminos());
+        mostrarConceptos();
+    }
 }
 
 void PreguntaForm::mostrarConceptos()
 {
     if (m_cuestionario) {
+        qDebug() << "Antes de siguiente";
         Pregunta *preguntaActual = m_cuestionario->siguiente();
+        qDebug() << "Después de siguiente";
         if (preguntaActual) {
             ui->txtConceptos->setText(preguntaActual->apunte()->concepto());
             ui->txtConceptos->setReadOnly(true);
         } else {
-            // Se llegó al final del cuestionario
-            // Puedes hacer algo aquí, como cerrar la ventana o mostrar un mensaje.
+            ui->txtConceptos->clear();
+            // ui->buttonBox->setEnabled(false);
+            emit preguntasContestadas();
+            this->parentWidget()->close();
         }
     }
 }
 
 void PreguntaForm::on_buttonBox_accepted()
 {
-    mostrarConceptos();
+    // Responde la pregunta actual
+    QString respuesta = ui->cmbTerminos->currentText();
+    if (!respuesta.isEmpty()) {
+        Pregunta *preguntaActual = m_cuestionario->siguiente();
+        if (preguntaActual) {
+            preguntaActual->responder(respuesta);
+            mostrarConceptos();
+        }
+    }
 }
 
+void PreguntaForm::siguienteConcepto()
+{
+    mostrarConceptos();
+
+    disconnect(ui->buttonBox, SIGNAL(accepted()), this, SLOT(siguienteConcepto()));
+}

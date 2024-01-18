@@ -19,9 +19,11 @@ public:
 
     void setCuestionario(Cuestionario *newCuestionario);
     void mostrarConceptos();
-
+signals:
+    void preguntasContestadas();
 private slots:
     void on_buttonBox_accepted();
+    void siguienteConcepto();
 
 private:
     Ui::PreguntaForm *ui;

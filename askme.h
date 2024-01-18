@@ -13,6 +13,7 @@
 #include <listaform.h>
 #include <cuestionarioform.h>
 #include <preguntaform.h>
+#include <resultadosform.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Askme; }
@@ -28,6 +29,7 @@ public:
 public slots:
     void on_apunteTomado(Apunte *apunte);
     void on_cuestionarioCreado(Cuestionario *cuestionario);
+    void on_preguntasContestadas();
 
 private:
     Ui::Askme *ui;

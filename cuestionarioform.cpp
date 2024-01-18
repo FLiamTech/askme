@@ -38,7 +38,6 @@ void CuestionarioForm::on_cmbAsignatura_currentIndexChanged(int index)
     }
 }
 
-
 void CuestionarioForm::on_buttonBox_accepted()
 {
     // Obtener los indices de los combos
