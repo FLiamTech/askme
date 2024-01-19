@@ -3,6 +3,8 @@
 
 #include <QWidget>
 
+#include <cuestionario.h>
+
 namespace Ui {
 class ResultadosForm;
 }
@@ -14,9 +16,14 @@ class ResultadosForm : public QWidget
 public:
     explicit ResultadosForm(QWidget *parent = nullptr);
     ~ResultadosForm();
+    void setDatos(Cuestionario *cuestionario);
 
 private:
     Ui::ResultadosForm *ui;
+
+    Cuestionario *m_cuestionario;
+
+    void cargarDatos();
 };
 
 #endif // RESULTADOSFORM_H

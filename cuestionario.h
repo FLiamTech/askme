@@ -19,12 +19,17 @@ public:
 
     const QList<Pregunta *> &preguntas() const;
     QString nombreTema() const;
+    int totalPreguntas() const;
+    bool hayMasPreguntas();
+
+    int mostradas() const;
 
 private:
     float m_score;
     Tema *m_tema;
     QList<Pregunta*> m_preguntas;
     QStringList m_terminos;
+    int m_mostradas;
 };
 
 #endif // CUESTIONARIO_H

@@ -9,11 +9,12 @@ Askme::Askme(QWidget *parent)
 
     cargar();
     //guardar();
-    connect(ui->actionCargar, SIGNAL(released()), this, SLOT(on_actionCargar_triggered()));
+    connect(ui->actionCargar, SIGNAL(triggered()), this, SLOT(on_actionCargar_triggered()));
 }
 
 Askme::~Askme()
 {
+    // disconnect(ui->actionCargar, SIGNAL(triggered()), this, SLOT(on_actionCargar_triggered()));
     delete ui;
 }
 
@@ -40,17 +41,21 @@ void Askme::on_cuestionarioCreado(Cuestionario *cuestionario)
     PreguntaForm *w = new PreguntaForm(this);
     w->setCuestionario(cuestionario);
 
-    connect(w, SIGNAL(preguntasContestadas()), this, SLOT(on_preguntasContestadas()));
+    connect(w, SIGNAL(preguntasContestadas(Cuestionario*)), this, SLOT(on_preguntasContestadas(Cuestionario*)));
 
     cargarSubVentana(w);
 
 }
 
-void Askme::on_preguntasContestadas()
+void Askme::on_preguntasContestadas(Cuestionario *cuestionario)
 {
+    cuestionario->finalizar();
     ResultadosForm *w = new ResultadosForm(this);
-
+    w->setDatos(cuestionario);
     cargarSubVentana(w);
+
+    qDebug() << "Preguntas contestadas. Abriendo ResultadosForm...";
+
 }
 
 void Askme::cargarSubVentana(QWidget *ventana)

@@ -5,7 +5,7 @@ Cuestionario::Cuestionario()
 
 }
 
-Cuestionario::Cuestionario(Tema *tema) : m_tema(tema)
+Cuestionario::Cuestionario(Tema *tema) : m_tema(tema), m_mostradas(0)
 {
     foreach(Apunte *a, m_tema->apuntes())
     {
@@ -21,6 +21,7 @@ Pregunta *Cuestionario::siguiente()
     {
         if(!p->respuesta())
         {
+            m_mostradas++;
             return p;
         }
     }
@@ -71,4 +72,19 @@ const QList<Pregunta *> &Cuestionario::preguntas() const
 QString Cuestionario::nombreTema() const
 {
     return m_tema->nombre();
+}
+
+int Cuestionario::totalPreguntas() const
+{
+    return m_preguntas.size();
+}
+
+bool Cuestionario::hayMasPreguntas()
+{
+    return (m_mostradas < totalPreguntas());
+}
+
+int Cuestionario::mostradas() const
+{
+    return m_mostradas;
 }

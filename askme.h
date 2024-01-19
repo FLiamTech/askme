@@ -26,21 +26,24 @@ class Askme : public QMainWindow
 public:
     Askme(QWidget *parent = nullptr);
     ~Askme();
+
 public slots:
     void on_apunteTomado(Apunte *apunte);
     void on_cuestionarioCreado(Cuestionario *cuestionario);
-    void on_preguntasContestadas();
+    void on_preguntasContestadas(Cuestionario *cuestionario);
 
 private:
     Ui::Askme *ui;
+    QList<Asignatura *> m_asignaturas;
+
     void cargarSubVentana(QWidget *ventana);
-    QList <Asignatura *> m_asignaturas;
     void guardar();
     void cargar();
+
 private slots:
     void on_actionNuevo_triggered();
-
     void on_actionLista_triggered();
     void on_actionGenerar_triggered();
 };
+
 #endif // ASKME_H
