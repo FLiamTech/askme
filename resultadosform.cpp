@@ -44,7 +44,7 @@ void ResultadosForm::cargarDatos()
     ui->tblResultados->setHorizontalHeaderLabels({"Término", "Contestada Correctamente"});
 
         // Llenar la tabla con los datos de las preguntas
-        for (int i = 0; i < preguntas.size(); ++i)
+    for (int i = 0; i < preguntas.size(); ++i)
     {
         QTableWidgetItem *terminoItem = new QTableWidgetItem(preguntas[i]->apunte()->termino());
         QTableWidgetItem *correctoItem = new QTableWidgetItem(preguntas[i]->correcto() ? "Correcto" : "Falso");

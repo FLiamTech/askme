@@ -14,6 +14,7 @@
 #include <cuestionarioform.h>
 #include <preguntaform.h>
 #include <resultadosform.h>
+#include <creditosform.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Askme; }
@@ -44,6 +45,7 @@ private slots:
     void on_actionNuevo_triggered();
     void on_actionLista_triggered();
     void on_actionGenerar_triggered();
+    void on_actionCreditos_triggered();
 };
 
 #endif // ASKME_H

@@ -191,3 +191,10 @@ void Askme::on_actionGenerar_triggered()
     cargarSubVentana(w);
 }
 
+
+void Askme::on_actionCreditos_triggered()
+{
+    CreditosForm *w = new CreditosForm(this);
+    cargarSubVentana(w);
+}
+
