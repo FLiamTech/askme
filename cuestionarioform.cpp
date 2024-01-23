@@ -52,3 +52,9 @@ void CuestionarioForm::on_buttonBox_accepted()
 
 }
 
+
+void CuestionarioForm::on_buttonBox_rejected()
+{
+    this->parentWidget()->close();
+}
+

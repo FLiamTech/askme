@@ -31,6 +31,8 @@ private slots:
 
     void on_buttonBox_accepted();
 
+    void on_buttonBox_rejected();
+
 private:
     Ui::CuestionarioForm *ui;
     QList<Asignatura*> *m_asignaturas;

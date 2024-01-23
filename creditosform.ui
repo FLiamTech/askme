@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>283</width>
-    <height>133</height>
+    <width>290</width>
+    <height>143</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -30,13 +30,23 @@
    </item>
    <item row="1" column="1">
     <widget class="QPushButton" name="pushButton">
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(253, 255, 138);
+font: 700 italic 9pt &quot;Segoe UI&quot;;
+color: rgb(0, 0, 0);</string>
+     </property>
      <property name="text">
       <string>Go!</string>
      </property>
     </widget>
    </item>
    <item row="0" column="1">
-    <widget class="QComboBox" name="comboBox"/>
+    <widget class="QComboBox" name="comboBox">
+     <property name="styleSheet">
+      <string notr="true">font: italic 9pt &quot;Segoe UI&quot;;
+background-color: rgb(253, 255, 138);</string>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>

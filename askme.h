@@ -46,6 +46,7 @@ private slots:
     void on_actionLista_triggered();
     void on_actionGenerar_triggered();
     void on_actionCreditos_triggered();
+    void on_actionSalir_triggered();
 };
 
 #endif // ASKME_H

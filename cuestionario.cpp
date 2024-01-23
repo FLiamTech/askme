@@ -17,7 +17,26 @@ Cuestionario::Cuestionario(Tema *tema) : m_tema(tema), m_mostradas(0)
 Pregunta *Cuestionario::siguiente()
 {
     // TO do lanzar preguntas al azar
-    foreach(Pregunta *p, m_preguntas)
+    QList<Pregunta *> preguntasRespondidas;
+    foreach (Pregunta *p, m_preguntas)
+    {
+        if(!p->respuesta())
+        {
+            preguntasRespondidas.append(p);
+        }
+    }
+    if(!preguntasRespondidas.isEmpty())
+    {
+        int indiceAleatorio = QRandomGenerator::global()->bounded(preguntasRespondidas.size());
+        Pregunta *preguntaAleatoria = preguntasRespondidas[indiceAleatorio];
+        m_mostradas++;
+        return preguntaAleatoria;
+    }
+
+    return nullptr;
+
+
+    /*foreach(Pregunta *p, m_preguntas)
     {
         if(!p->respuesta())
         {
@@ -25,7 +44,7 @@ Pregunta *Cuestionario::siguiente()
             return p;
         }
     }
-    return nullptr;
+    return nullptr;*/
 }
 
 const QStringList &Cuestionario::terminos() const

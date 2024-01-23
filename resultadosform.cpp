@@ -15,15 +15,8 @@ ResultadosForm::~ResultadosForm()
 
 void ResultadosForm::setDatos(Cuestionario *cuestionario)
 {
-    if (cuestionario)
-    {
         m_cuestionario = cuestionario;
         cargarDatos();
-    }
-    else
-    {
-
-    }
 }
 
 void ResultadosForm::cargarDatos()
@@ -38,18 +31,30 @@ void ResultadosForm::cargarDatos()
 
     QList<Pregunta *> preguntas = m_cuestionario->preguntas();
 
+    QList<Pregunta *> preguntasContestadas;
+    for (Pregunta *pregunta : preguntas) {
+        if (pregunta->respuesta()) {
+            preguntasContestadas.append(pregunta);
+        }
+    }
     ui->tblResultados->setRowCount(preguntas.size());
     ui->tblResultados->setColumnCount(2);
 
-    ui->tblResultados->setHorizontalHeaderLabels({"Término", "Contestada Correctamente"});
+    ui->tblResultados->setHorizontalHeaderLabels({"Termino", "Contestada Correctamente"});
 
-        // Llenar la tabla con los datos de las preguntas
-    for (int i = 0; i < preguntas.size(); ++i)
+    // Llenar la tabla con los datos de las preguntas
+    for (int i = 0; i < preguntasContestadas.size(); ++i)
     {
         QTableWidgetItem *terminoItem = new QTableWidgetItem(preguntas[i]->apunte()->termino());
-        QTableWidgetItem *correctoItem = new QTableWidgetItem(preguntas[i]->correcto() ? "Correcto" : "Falso");
+        QTableWidgetItem *correctoItem = new QTableWidgetItem(preguntas[i]->correcto() ? "😁" : "😞");
 
         ui->tblResultados->setItem(i, 0, terminoItem);
         ui->tblResultados->setItem(i, 1, correctoItem);
     }
 }
+
+void ResultadosForm::on_btnCerrar_released()
+{
+    this->parentWidget()->close();
+}
+

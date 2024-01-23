@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <layout class="QFormLayout" name="formLayout">
    <item row="0" column="0">
     <widget class="QLabel" name="label_3">
@@ -23,6 +26,10 @@
    </item>
    <item row="0" column="1">
     <widget class="QLabel" name="lblTema">
+     <property name="styleSheet">
+      <string notr="true">font: 900 italic 9pt &quot;Segoe UI&quot;;
+color: rgb(153, 0, 0);</string>
+     </property>
      <property name="text">
       <string>Desconocido</string>
      </property>
@@ -36,7 +43,11 @@
     </widget>
    </item>
    <item row="1" column="1">
-    <widget class="QTextEdit" name="txtConceptos"/>
+    <widget class="QTextEdit" name="txtConceptos">
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 250, 174);</string>
+     </property>
+    </widget>
    </item>
    <item row="2" column="0">
     <widget class="QLabel" name="label_2">
@@ -46,7 +57,11 @@
     </widget>
    </item>
    <item row="2" column="1">
-    <widget class="QComboBox" name="cmbTerminos"/>
+    <widget class="QComboBox" name="cmbTerminos">
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 252, 152);</string>
+     </property>
+    </widget>
    </item>
    <item row="3" column="0">
     <widget class="QLabel" name="label_4">
@@ -57,6 +72,10 @@
    </item>
    <item row="3" column="1">
     <widget class="QLabel" name="lblContador">
+     <property name="styleSheet">
+      <string notr="true">font: 700 italic 9pt &quot;Segoe UI&quot;;
+color: rgb(148, 0, 0);</string>
+     </property>
      <property name="text">
       <string>0/0</string>
      </property>
@@ -64,6 +83,11 @@
    </item>
    <item row="4" column="1">
     <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 255, 137);
+color: rgb(0, 0, 0);
+font: 700 italic 9pt &quot;Segoe UI&quot;;</string>
+     </property>
      <property name="standardButtons">
       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
      </property>

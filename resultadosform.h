@@ -2,6 +2,8 @@
 #define RESULTADOSFORM_H
 
 #include <QWidget>
+#include <QMessageBox>
+
 
 #include <cuestionario.h>
 
@@ -17,6 +19,9 @@ public:
     explicit ResultadosForm(QWidget *parent = nullptr);
     ~ResultadosForm();
     void setDatos(Cuestionario *cuestionario);
+
+private slots:
+    void on_btnCerrar_released();
 
 private:
     Ui::ResultadosForm *ui;

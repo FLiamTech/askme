@@ -2,6 +2,7 @@
 #define CUESTIONARIO_H
 
 #include <QString>
+#include <QRandomGenerator>
 
 #include <pregunta.h>
 #include <tema.h>

@@ -18,13 +18,21 @@
     <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
       <widget class="QLabel" name="label_2">
+       <property name="styleSheet">
+        <string notr="true">font: 700 9pt &quot;Segoe UI&quot;;
+color: rgb(148, 0, 0);</string>
+       </property>
        <property name="text">
-        <string>Termino</string>
+        <string>Temas:</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QTableWidget" name="tblTemas"/>
+      <widget class="QTableWidget" name="tblTemas">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(253, 255, 138);</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
@@ -32,13 +40,21 @@
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <widget class="QLabel" name="label_3">
+       <property name="styleSheet">
+        <string notr="true">font: 700 9pt &quot;Segoe UI&quot;;
+color: rgb(148, 0, 0);</string>
+       </property>
        <property name="text">
-        <string>Concepto</string>
+        <string>Terminos:</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QTableWidget" name="tblConceptos"/>
+      <widget class="QTableWidget" name="tblTerminos">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(253, 255, 138);</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
@@ -50,7 +66,11 @@
     </widget>
    </item>
    <item row="0" column="1" colspan="2">
-    <widget class="QComboBox" name="cmbAsignaturas"/>
+    <widget class="QComboBox" name="cmbAsignaturas">
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(253, 255, 138);</string>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>

@@ -8,14 +8,17 @@ listaForm::listaForm(QWidget *parent) :
 {
     ui->setupUi(this);
     connect(ui->cmbAsignaturas, SIGNAL(currentIndexChanged(const QString&)), this, SLOT(cargarTemas()));
+    connect(ui->tblTemas, SIGNAL(cellClicked(int, int)), this, SLOT(cargarTerminos(int, int)));
     ui->tblTemas->setColumnCount(1);
-    ui->tblConceptos->setColumnCount(1);
-    QStringList cabecera, cabecera2;
+    ui->tblTerminos->setColumnCount(1);
+    QStringList cabecera;
+    QStringList cabeceraDos;
     cabecera << "Temas";
     ui->tblTemas->setHorizontalHeaderLabels(cabecera);
-    cabecera2 << "Conceptos";
-    ui->tblTemas->setHorizontalHeaderLabels(cabecera2);
+    cabeceraDos << "Conceptos";
+    ui->tblTerminos->setHorizontalHeaderLabels(cabeceraDos);
     cargarAsignaturas();
+
 }
 
 listaForm::~listaForm()
@@ -56,9 +59,8 @@ void listaForm::cargarTemas()
             }
         }
     }
-
-    ui->tblConceptos->clearContents();
-    ui->tblConceptos->setRowCount(0);
+    ui->tblTerminos->clearContents();
+    ui->tblTerminos->setRowCount(0);
 }
 
 void listaForm::setAsignaturas(QList<Asignatura *> *asignaturas)
@@ -84,12 +86,62 @@ void listaForm::cargarTT(QString nombreAsignatura)
     limpiar();
 }
 
+void listaForm::cargarTerminos(int fila, int columna)
+{
+    ui->tblTerminos->clearContents();
+    ui->tblTerminos->setRowCount(0);
+    if (fila >= 0 && columna >= 0)
+    {
+        QString nombreAsignatura = ui->cmbAsignaturas->currentText();
+        QString nombreTema = ui->tblTemas->item(fila, columna)->text();
+
+        if (m_asignaturas)
+        {
+            Asignatura *asignaturaSeleccionada = nullptr;
+            foreach (Asignatura *a, *m_asignaturas)
+            {
+                if (a->nombre() == nombreAsignatura)
+                {
+                    asignaturaSeleccionada = a;
+                    break;
+                }
+            }
+
+            if (asignaturaSeleccionada)
+            {
+                QList<Tema *> temas = asignaturaSeleccionada->temas();
+                foreach (Tema *t, temas)
+                {
+                    if (t->nombre() == nombreTema)
+                    {
+                        QList<Apunte *> apuntes = t->apuntes();
+                        int filaTerminos = 0;
+                        foreach (Apunte *ap, apuntes)
+                        {
+                            ui->tblTerminos->insertRow(filaTerminos);
+                            ui->tblTerminos->setItem(filaTerminos, 0, new QTableWidgetItem(ap->termino()));
+                            filaTerminos++;
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+    }
+}
+
 void listaForm::limpiar()
 {
     ui->tblTemas->clearContents();
     ui->tblTemas->setRowCount(0);
 
-    ui->tblConceptos->clearContents();
-    ui->tblConceptos->setRowCount(0);
-    ui->tblConceptos->clear();
+    ui->tblTerminos->clearContents();
+    ui->tblTerminos->setRowCount(0);
+    ui->tblTerminos->clear();
 }
+
+void listaForm::on_tblTemas_cellClicked(int row, int column)
+{
+    cargarTerminos(row, column);
+}
+

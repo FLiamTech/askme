@@ -198,3 +198,13 @@ void Askme::on_actionCreditos_triggered()
     cargarSubVentana(w);
 }
 
+
+void Askme::on_actionSalir_triggered()
+{
+    int opcion = QMessageBox::question(this, "Salir del programa", "¿Estas seguro de que quieres salir del programa?", QMessageBox::Yes | QMessageBox::No);
+    if(opcion == QMessageBox::Yes)
+    {
+        qApp->quit();
+    }
+}
+
