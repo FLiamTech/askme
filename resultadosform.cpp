@@ -23,12 +23,15 @@ void ResultadosForm::cargarDatos()
 {
     float score = m_cuestionario->score();
     QString tema = m_cuestionario->nombreTema();
-
+    QString asignatura = m_cuestionario->asignatura();
     QString porcentaje = QString::number(score, 'f', 2) + "%";
-
+    // Mostrar el score
     ui->lblScore->setText("Score: " + porcentaje);
+    // Mostar el tema
     ui->lblTema->setText(tema);
-
+    //Mostrar la asignatura
+    ui->lblAsignatura->setText(asignatura);
+    // Cargar datos en la tabla
     QList<Pregunta *> preguntas = m_cuestionario->preguntas();
 
     QList<Pregunta *> preguntasContestadas;

@@ -11,7 +11,7 @@ class Cuestionario
 {
 public:
     Cuestionario();
-    Cuestionario(Tema *tema);
+    Cuestionario(QString Asignatura, Tema *tema);
     Pregunta *siguiente();
     const QStringList &terminos() const;
     float finalizar();
@@ -25,11 +25,15 @@ public:
 
     int mostradas() const;
 
+    const QString &asignatura() const;
+    void setAsignatura(const QString &newAsignatura);
+
 private:
     float m_score;
     Tema *m_tema;
     QList<Pregunta*> m_preguntas;
     QStringList m_terminos;
+    QString m_asignatura;
     int m_mostradas;
 };
 

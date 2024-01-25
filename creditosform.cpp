@@ -7,15 +7,27 @@ CreditosForm::CreditosForm(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    ui->comboBox->addItem("rtufino");
-    ui->comboBox->addItem("FLiam Tech");
-    ui->comboBox->addItem("ArielFLores5");
-    ui->comboBox->addItem("Hayai01");
-    ui->comboBox->addItem("Mayerli12");
-    ui->comboBox->addItem("LuisCOD369");
-    ui->comboBox->addItem("defaultdavr21");
-    ui->comboBox->addItem("EonSoulCout");
+    // Colaboradores de Computación
 
+    ui->cmbColaboradoresUno->addItem("rtufino");
+    ui->cmbColaboradoresUno->addItem("FLiam Tech");
+    ui->cmbColaboradoresUno->addItem("ArielFLores5");
+    ui->cmbColaboradoresUno->addItem("Hayai01");
+    ui->cmbColaboradoresUno->addItem("Mayerli12");
+    ui->cmbColaboradoresUno->addItem("LuisCOD369");
+    ui->cmbColaboradoresUno->addItem("defaultdavr21");
+    ui->cmbColaboradoresUno->addItem("EonSoulCout");
+
+    // Colaboradores de Filosofia
+
+    ui->cmbColaboradoresDos->addItem("William Orlando Cárdenas Marin");
+    ui->cmbColaboradoresDos->addItem("Jonathan Andrés Analuisa Vargas");
+    ui->cmbColaboradoresDos->addItem("Juan Pablo Pauchi Cerda");
+    ui->cmbColaboradoresDos->addItem("Jimmy Xavier Zambrano");
+    ui->cmbColaboradoresDos->addItem("Félix David Tulcán Coral");
+    ui->cmbColaboradoresDos->addItem("Gustavo Rubén Quishpe Ayala");
+    ui->cmbColaboradoresDos->addItem("Rómulo Yordan Valera Quispilaya");
+    ui->cmbColaboradoresDos->addItem("Jennifer Nicole Játiva Erazo");
 }
 
 CreditosForm::~CreditosForm()
@@ -25,7 +37,7 @@ CreditosForm::~CreditosForm()
 
 void CreditosForm::on_pushButton_released()
 {
-    int index = ui->comboBox->currentIndex();
+    int index = ui->cmbColaboradoresUno->currentIndex();
     QString URL;
     switch(index)
     {

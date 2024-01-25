@@ -43,10 +43,12 @@ void CuestionarioForm::on_buttonBox_accepted()
     // Obtener los indices de los combos
     int indexAsignatura = ui->cmbAsignatura->currentIndex();
     int indexTema = ui->cmbTema->currentIndex();
+    // Obtener el texto de la asignatura seleccionada
+    QString asignatura = ui->cmbAsignatura->currentText();
     //Crear la tarea
     Tema *t = m_asignaturas->at(indexAsignatura)->temas().at(indexTema);
     // emite señal
-    emit cuestionarioCreado(new Cuestionario(t));
+    emit cuestionarioCreado(new Cuestionario(asignatura, t));
     // cerrar
     this->parentWidget()->close();
 
