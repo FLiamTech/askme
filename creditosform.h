@@ -6,7 +6,7 @@
 #include <QDesktopServices>
 
 #include <QString>
-
+#include <QMessageBox>
 
 namespace Ui {
 class CreditosForm;
@@ -22,6 +22,8 @@ public:
 
 private slots:
     void on_pushButton_released();
+
+    void on_pushButton_2_released();
 
 private:
     Ui::CreditosForm *ui;

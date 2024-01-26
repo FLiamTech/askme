@@ -7,6 +7,7 @@
 #include <QTextStream>
 #include <QFileDialog>
 #include <QDebug>
+#include <QCoreApplication>
 
 #include <apunteform.h>
 #include <asignatura.h>

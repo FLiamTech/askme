@@ -66,7 +66,8 @@ void Askme::cargarSubVentana(QWidget *ventana)
 
 void Askme::guardar()
 {
-    QFile file("apuntes.csv");
+    QString filePath = QCoreApplication::applicationDirPath() + "/AskMe/apuntes.csv";
+    QFile file(filePath);
     qDebug() << "Intentando abrir el archivo para escribir...";
     if(file.open(QIODevice::WriteOnly | QIODevice::Text))
     {

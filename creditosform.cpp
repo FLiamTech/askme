@@ -9,6 +9,18 @@ CreditosForm::CreditosForm(QWidget *parent) :
 
     // Colaboradores de Computación
 
+    // Nombres
+
+    ui->cmbColaboradores1->addItem("Christopher Ariel Flores Caiza");
+    ui->cmbColaboradores1->addItem("Mayerli Julieth Campuez de la Cruz");
+    ui->cmbColaboradores1->addItem("Fabian Liam Izquierdo Oñate");
+    ui->cmbColaboradores1->addItem("Luis Adrian Pillajo Lema");
+    ui->cmbColaboradores1->addItem("Jose David Ramos Cuenca");
+    ui->cmbColaboradores1->addItem("Sebastian Mateo Espinosa Jimenez");
+    ui->cmbColaboradores1->addItem("Joseph Andres Uyana Mora");
+
+    // GitHub
+
     ui->cmbColaboradoresUno->addItem("rtufino");
     ui->cmbColaboradoresUno->addItem("FLiam Tech");
     ui->cmbColaboradoresUno->addItem("ArielFLores5");
@@ -20,7 +32,6 @@ CreditosForm::CreditosForm(QWidget *parent) :
 
     // Colaboradores de Filosofia
 
-    ui->cmbColaboradoresDos->addItem("William Orlando Cárdenas Marin");
     ui->cmbColaboradoresDos->addItem("Jonathan Andrés Analuisa Vargas");
     ui->cmbColaboradoresDos->addItem("Juan Pablo Pauchi Cerda");
     ui->cmbColaboradoresDos->addItem("Jimmy Xavier Zambrano");
@@ -73,5 +84,20 @@ void CreditosForm::on_pushButton_released()
         QDesktopServices::openUrl(QUrl(URL));
     }
 
+}
+
+
+void CreditosForm::on_pushButton_2_released()
+{
+    // Crear y configurar el cuadro de diálogo
+    QMessageBox mensaje;
+    mensaje.setIcon(QMessageBox::Information);
+    mensaje.setWindowTitle("Agradecimientos");
+    mensaje.setText("Desde el Departamento de la Carrera de Filosofía de la Universidad Politécnica Salesiana, con sede en el campus El Girón, en conjunto con la Carrera de Computación ubicada en el Campus Sur, nos complace expresar nuestros sinceros agradecimientos por la valiosa colaboración entre ambas carreras en la realización de este gran proyecto.\n\n"
+                    "Con la concepción y planificación por parte de la Carrera de Filosofía, aportando con una visión y un enfoque inicial marcando su origen. Por otra parte, la Carrera de Computación asumió la responsabilidad de su desarrollo y ejecución, desempeñando un papel fundamental en la realización de esta aplicación.\n\n"
+                    "Expresamos nuestros profundos agradecimientos a todos los involucrados en este proyecto. ¡Gracias por hacer posible esta exitosa colaboración!");
+
+    // Mostrar el cuadro de diálogo
+    mensaje.exec();
 }
 

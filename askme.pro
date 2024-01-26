@@ -1,6 +1,8 @@
 QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+INCLUDEPATH +=$$PWD
+
 
 CONFIG += c++11
 
@@ -52,7 +54,10 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
+    Recursos/icono.ico \
     diagrama.qmodel
 
 RESOURCES += \
     Resources.qrc
+
+
