@@ -17,7 +17,7 @@
    <item row="4" column="0" colspan="5">
     <widget class="QTableWidget" name="tblResultados">
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(253, 255, 138);</string>
+      <string notr="true">background-color: rgb(255, 255, 255);</string>
      </property>
     </widget>
    </item>
@@ -31,7 +31,7 @@
    <item row="5" column="4">
     <widget class="QPushButton" name="btnCerrar">
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(253, 255, 138);
+      <string notr="true">background-color: rgb(85, 170, 127);
 font: 700 9pt &quot;Segoe UI&quot;;
 color: rgb(0, 0, 0);</string>
      </property>

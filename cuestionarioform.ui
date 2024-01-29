@@ -22,7 +22,11 @@
     </widget>
    </item>
    <item row="0" column="1">
-    <widget class="QComboBox" name="cmbAsignatura"/>
+    <widget class="QComboBox" name="cmbAsignatura">
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 255, 255);</string>
+     </property>
+    </widget>
    </item>
    <item row="1" column="0">
     <widget class="QLabel" name="label_2">
@@ -32,12 +36,16 @@
     </widget>
    </item>
    <item row="1" column="1">
-    <widget class="QComboBox" name="cmbTema"/>
+    <widget class="QComboBox" name="cmbTema">
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 255, 255);</string>
+     </property>
+    </widget>
    </item>
    <item row="2" column="1">
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(255, 252, 152);
+      <string notr="true">background-color: rgb(85, 170, 127);
 color: rgb(0, 0, 0);
 font: 700 italic 9pt &quot;Segoe UI&quot;;</string>
      </property>

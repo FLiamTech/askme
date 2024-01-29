@@ -33,7 +33,7 @@ font: 900 9pt &quot;Segoe UI&quot;;
       <item row="1" column="1" colspan="2">
        <widget class="QComboBox" name="cmbClase">
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(253, 255, 138);</string>
+         <string notr="true">background-color: rgb(255, 255, 255);</string>
         </property>
        </widget>
       </item>
@@ -41,7 +41,7 @@ font: 900 9pt &quot;Segoe UI&quot;;
        <widget class="QLineEdit" name="txtTermino">
         <property name="styleSheet">
          <string notr="true">font: 700 italic 9pt &quot;Arial&quot;;
-background-color: rgb(252, 255, 101);
+background-color: rgb(255, 255, 255);
 color: rgb(170, 0, 0);</string>
         </property>
        </widget>
@@ -55,7 +55,7 @@ color: rgb(170, 0, 0);</string>
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(255, 255, 0);</string>
+         <string notr="true">background-color: rgb(111, 222, 164);</string>
         </property>
         <property name="text">
          <string>+</string>
@@ -71,7 +71,7 @@ color: rgb(170, 0, 0);</string>
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(255, 255, 0);</string>
+         <string notr="true">background-color: rgb(111, 222, 164);</string>
         </property>
         <property name="text">
          <string>+</string>
@@ -101,7 +101,7 @@ color: rgb(170, 0, 0);</string>
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(255, 255, 0);</string>
+         <string notr="true">background-color: rgb(111, 222, 164);</string>
         </property>
         <property name="text">
          <string>R</string>
@@ -117,7 +117,7 @@ color: rgb(170, 0, 0);</string>
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(255, 255, 0);</string>
+         <string notr="true">background-color: rgb(111, 222, 164);</string>
         </property>
         <property name="text">
          <string>R</string>
@@ -127,7 +127,8 @@ color: rgb(170, 0, 0);</string>
       <item row="0" column="1" colspan="2">
        <widget class="QComboBox" name="cmbAsignatura">
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(253, 255, 138);</string>
+         <string notr="true">
+background-color: rgb(255, 255, 255);</string>
         </property>
        </widget>
       </item>
@@ -148,7 +149,7 @@ color: rgb(170, 0, 0);</string>
        <widget class="QTextEdit" name="textEdit">
         <property name="styleSheet">
          <string notr="true">font: 700 italic 9pt &quot;Arial&quot;;
-background-color: rgb(253, 255, 138);
+background-color: rgb(255, 255, 255);
 color: rgb(0, 0, 0);</string>
         </property>
         <property name="html">
@@ -166,7 +167,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <item row="2" column="2">
        <widget class="QDialogButtonBox" name="buttonBox">
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(248, 255, 107);</string>
+         <string notr="true">background-color: rgb(85, 170, 127);</string>
         </property>
         <property name="standardButtons">
          <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>

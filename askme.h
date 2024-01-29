@@ -8,6 +8,7 @@
 #include <QFileDialog>
 #include <QDebug>
 #include <QCoreApplication>
+#include <QDir>
 
 #include <apunteform.h>
 #include <asignatura.h>
@@ -41,6 +42,12 @@ private:
     void cargarSubVentana(QWidget *ventana);
     void guardar();
     void cargar();
+    void valiarDirectorio();
+    void datosPrueba();
+
+    bool m_normal = true;
+    QString m_path;
+    QString m_archivo;
 
 private slots:
     void on_actionNuevo_triggered();

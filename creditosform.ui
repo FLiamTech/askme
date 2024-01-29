@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>564</width>
+    <width>590</width>
     <height>448</height>
    </rect>
   </property>
@@ -14,7 +14,7 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(246, 255, 151);</string>
+   <string notr="true"/>
   </property>
   <layout class="QGridLayout" name="gridLayout_3">
    <item row="0" column="0" colspan="2">
@@ -32,6 +32,9 @@
    </item>
    <item row="1" column="0" colspan="2">
     <widget class="QTextEdit" name="textEdit">
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 255, 255);</string>
+     </property>
      <property name="html">
       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -50,6 +53,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
    </item>
    <item row="2" column="0">
     <widget class="QWidget" name="widget_2" native="true">
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(208, 255, 252);</string>
+     </property>
      <layout class="QGridLayout" name="gridLayout">
       <item row="2" column="1">
        <widget class="QLabel" name="label_11">
@@ -79,7 +85,7 @@ Color: rgb(177, 0, 0)</string>
       <item row="3" column="1">
        <widget class="QComboBox" name="cmbColaboradoresDos">
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(255, 251, 143);</string>
+         <string notr="true">background-color: rgb(255, 255, 255);</string>
         </property>
        </widget>
       </item>
@@ -102,6 +108,9 @@ Color: rgb(177, 0, 0)</string>
    </item>
    <item row="2" column="1">
     <widget class="QWidget" name="widget" native="true">
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(208, 255, 252);</string>
+     </property>
      <layout class="QGridLayout" name="gridLayout_2">
       <item row="0" column="0" colspan="2">
        <widget class="QLabel" name="label_3">
@@ -146,7 +155,11 @@ color: rgb(162, 0, 0);</string>
        </widget>
       </item>
       <item row="3" column="1" colspan="2">
-       <widget class="QComboBox" name="cmbColaboradores1"/>
+       <widget class="QComboBox" name="cmbColaboradores1">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(255, 255, 255);</string>
+        </property>
+       </widget>
       </item>
       <item row="4" column="0">
        <widget class="QLabel" name="label_2">
@@ -159,14 +172,14 @@ color: rgb(162, 0, 0);</string>
        <widget class="QComboBox" name="cmbColaboradoresUno">
         <property name="styleSheet">
          <string notr="true">font: italic 9pt &quot;Segoe UI&quot;;
-background-color: rgb(253, 255, 138);</string>
+background-color: rgb(255, 255, 255);</string>
         </property>
        </widget>
       </item>
       <item row="4" column="2">
        <widget class="QPushButton" name="pushButton">
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(253, 255, 138);
+         <string notr="true">background-color: rgb(85, 170, 127);
 font: 700 italic 9pt &quot;Segoe UI&quot;;
 color: rgb(0, 0, 0);</string>
         </property>
