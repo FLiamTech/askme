@@ -41,18 +41,22 @@ void ResultadosForm::cargarDatos()
         }
     }
     ui->tblResultados->setRowCount(preguntas.size());
-    ui->tblResultados->setColumnCount(2);
+    ui->tblResultados->setColumnCount(3);
 
-    ui->tblResultados->setHorizontalHeaderLabels({"Termino", "Contestada Correctamente"});
+    ui->tblResultados->setHorizontalHeaderLabels({"Termino", "Concepto", "Contestada Correctamente"});
 
     // Llenar la tabla con los datos de las preguntas
     for (int i = 0; i < preguntasContestadas.size(); ++i)
     {
         QTableWidgetItem *terminoItem = new QTableWidgetItem(preguntas[i]->apunte()->termino());
+        QTableWidgetItem *conceptoItem = new QTableWidgetItem(preguntas[i]->apunte()->concepto());
         QTableWidgetItem *correctoItem = new QTableWidgetItem(preguntas[i]->correcto() ? "😁" : "😞");
 
+
         ui->tblResultados->setItem(i, 0, terminoItem);
-        ui->tblResultados->setItem(i, 1, correctoItem);
+        ui->tblResultados->setItem(i, 1, conceptoItem);
+        ui->tblResultados->setItem(i, 2, correctoItem);
+
     }
 }
 

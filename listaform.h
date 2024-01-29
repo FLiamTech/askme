@@ -18,9 +18,7 @@ public:
     explicit listaForm(QWidget *parent = nullptr);
     void setAsignaturas(QList<Asignatura *> *asignaturas);
     void cargarAsignaturas();
-    void cargarTT(QString asignatura);
     void cargarTerminos(int fila, int columna);
-    void limpiar();
     ~listaForm();
 
 private:
